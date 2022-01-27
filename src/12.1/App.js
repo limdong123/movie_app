@@ -2,7 +2,6 @@ import React from "react";
 import propTypes from "prop-types";
 import axios from "axios";
 import Movie from "./Movie";
-import "./App.css"  //CSS임폴트
 
 class App extends React.Component {
   state = {
@@ -15,7 +14,7 @@ class App extends React.Component {
     this.setState({
       movies: movies,
       isLoading: false
-    })  
+    })  // 이름이 같기 때문에 ({movies})적어도 가능하다.
 
   }
 
@@ -26,14 +25,9 @@ class App extends React.Component {
   render() {
     const { isLoading, movies } = this.state
     return (
-      <section className = "container">
-        {isLoading 
-        ? <div className="loader" >
-          <span className ="loader_text">Loading...</span>
-        </div>
-         :(
-          <div className = "movies">
-            {movies.map(item => {
+      <div>
+        {isLoading ? "Loading..." :
+          movies.map(item => {
             return <Movie
               key={item.id}
               id={item.id}
@@ -41,12 +35,11 @@ class App extends React.Component {
               title={item.title}
               summary={item.summary}
               poster={item.medium_cover_image}
-              genres={item.genres}
             />
-  })}
-          </div>
-         )}
-      </section>
+
+          })
+        }
+      </div>
     );
   }
 }
